@@ -106,9 +106,15 @@ return <Link to="/register" className="nav-link">Register</Link>
               <Link to="/profile" className="nav-link">
                 Home
               </Link>
+              <Link to="/order-history" className="nav-link">
+                Order History
+              </Link>
+              <Link to="/mycart" className="nav-link">
+                Cart
+              </Link>
               <Link className="nav-link" onClick={handleLogout}>
                 Logout
-              </Link>
+              </Link>              
             </div>
           </div>
           )}

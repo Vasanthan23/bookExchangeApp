@@ -2,6 +2,8 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-d
 import {Register} from "../components/Signup";
 import {Login} from "../components/Signup";
 import UserProfile from "../components/userProfile";
+import ViewCart from "../components/transactionManagement/ViewCart";
+import OrderHistory from "../components/transactionManagement/Orders/OrderHistory";
 
 export const AppRoutes=({children})=>{
     return <Router>
@@ -11,6 +13,8 @@ export const AppRoutes=({children})=>{
       <Route path="/register" element={<Register/>} />
       <Route path="/login" element={<Login/>} />
       <Route path="/profile" element={<UserProfile/>} />
+      <Route path = "/mycart" element = {<ViewCart/>} />
+      <Route path = "/order-history" element = {<OrderHistory/>} />
     </Routes>
   </Router>
 }
