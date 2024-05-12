@@ -82,8 +82,28 @@ setIsLoading(true)
       }
   }
 
+
+  const getOrderHistory=async()=>{
+    setIsLoading(true)
+    let response;
+    let url = `http://localhost:4000/auth/order-history/nishtha`;
+          try {
+              response = await axios.get(url, {
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
+              });
+              setIsLoading(false);
+          } catch (error) {
+            setUser(null);
+            setToken(null);
+            setIsLoading(false);
+          }
+      return response;
+      }
+
   return (
-    <AuthContext.Provider value={{ user, token,isLoading,setIsLoading,setUser, setToken ,login, logout,register,getUserInfo,selectedBooks,setSelectedBooks }}>
+    <AuthContext.Provider value={{ user, token,isLoading,setIsLoading,setUser, setToken ,login, logout,register,getUserInfo,selectedBooks,setSelectedBooks, getOrderHistory }}>
       {children}
     </AuthContext.Provider>
   );

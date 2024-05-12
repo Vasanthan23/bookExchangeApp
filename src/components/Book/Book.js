@@ -81,6 +81,7 @@ const Book = () => {
 
     const onAddToCart = (product,productId,quantity) => {
         if(product != undefined && product != null){
+          alert("Added to cart");
           setSelectedBooks([...selectedBooks,product]);
         }
     }
@@ -171,7 +172,6 @@ const Book = () => {
                   md={3}
                   lg={2}
                   id="pro"
-                  key={product.name}
                 >
                   <Product product={product} onAddToCart={onAddToCart} />
                 </Grid>
