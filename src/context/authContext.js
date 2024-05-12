@@ -83,7 +83,7 @@ setIsLoading(true)
   }
 
   return (
-    <AuthContext.Provider value={{ user, token,isLoading,setUser, setToken ,login, logout,register,getUserInfo,selectedBooks,setSelectedBooks }}>
+    <AuthContext.Provider value={{ user, token,isLoading,setIsLoading,setUser, setToken ,login, logout,register,getUserInfo,selectedBooks,setSelectedBooks }}>
       {children}
     </AuthContext.Provider>
   );

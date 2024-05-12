@@ -12,7 +12,7 @@ export const Login = () => {
 
   useEffect(()=>{
 if(user){
-  navigate('/profile');
+  navigate('/books');
 }
   },[])
 
@@ -20,7 +20,7 @@ if(user){
     event.preventDefault();
     const message=await login(username,password);
     if(message==="success"){
-      navigate('/profile');
+      navigate('/books');
     }else{
       setError(message);
     }

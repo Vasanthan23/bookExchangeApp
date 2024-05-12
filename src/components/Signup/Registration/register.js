@@ -19,7 +19,7 @@ export const Register=()=> {
     }else if(password.length>5){
       const message= await register({username,email,password,confirmPassword})
       if(message==="success"){
-        navigate('/profile');
+        navigate('/books');
       }else{
         setError(message);
       }

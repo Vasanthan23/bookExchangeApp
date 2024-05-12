@@ -56,7 +56,7 @@ import { AuthContext } from '../../../context/authContext';
 import "./header.css"
 
 export const Header=()=> {
-  const [showLogout, setShowLogout] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
   const {user,getUserInfo,logout} = useContext(AuthContext);
   const location=useLocation();
   const navigate=useNavigate();
@@ -77,15 +77,12 @@ return <Link to="/login" className="nav-link">Login</Link>
    }else if( location.pathname.includes('login')){
 return <Link to="/register" className="nav-link">Register</Link>
    }else{
-    return <></>
+    return false;
    }
   }
 
   const handleLogout=()=>{
-    if(showLogout){
-      setShowLogout(false)
       logout(()=>navigate('/login'));
-    }
   }
 
   return (
@@ -96,15 +93,18 @@ return <Link to="/register" className="nav-link">Register</Link>
       <div>
       <div className="navbar-nav ml-auto" >
         {!user&&headerContent()}
-          <div className="nav-link" onClick={()=>setShowLogout(!showLogout)}>
+          <div className="nav-link" onClick={()=>!headerContent()&&setShowMenu(!showMenu)}>
             <i className="fas fa-user user"></i>
           </div>
           {user && <div className='username'>{user.username}</div>}
-          {showLogout && (
+          {showMenu && (
             <div className="logout-overlay">
-            <div className="logout-option">
-              <Link to="/profile" className="nav-link">
+            <div className="logout-option" onClick={()=>setShowMenu(!showMenu)}>
+              <Link to="/books" className="nav-link">
                 Home
+              </Link>
+              <Link to="/profile" className="nav-link">
+                Profile
               </Link>
               <Link to="/order-history" className="nav-link">
                 Order History
