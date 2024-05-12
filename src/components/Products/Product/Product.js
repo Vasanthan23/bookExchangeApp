@@ -29,18 +29,18 @@ const Product = ({ product, onAddToCart }) => {
         <div className={classes.cardContent}>
           <p className={classes.cardContentName}> {product.name}</p>
         </div>
-        <div className={classes.cardContent}>
+        {/* <div className={classes.cardContent}>
           <p className={classes.cardContentPrice}>
             <b>{product.price.formatted_with_symbol}</b>
           </p>
-        </div>
+        </div> */}
       </CardContent>
       <CardActions disableSpacing className={classes.cardActions}>
         <Button
           variant="contained"
           className={classes.button}
           endIcon={<AddShoppingCart />}
-          onClick={() => onAddToCart(product.id, 1)}
+          onClick={() => onAddToCart(product,product.id, 1)}
         >
           <b>ADD TO CART</b>
         </Button>

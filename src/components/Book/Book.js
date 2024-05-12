@@ -1,11 +1,17 @@
-import { useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import useStyles from './styles';
-import { Grid } from '@material-ui/core';
+import { Grid,Input,InputAdornment } from '@material-ui/core';
 import Product from '../Products/Product/Product';
+import axios from "axios";
+import SearchIcon from "@material-ui/icons/Search";
+import { AuthContext } from '../../context/authContext';
 
 const Book = () => {
 
     const classes = useStyles();
+    const {selectedBooks,setSelectedBooks} = useContext(AuthContext);
+    const [searchTerm,setSearchTerm] = useState("");
+    const [searchResult,setSearchResult] = useState();
     const [bookList,setBookList] = useState([
         {
             "id": "prod_kd6Ll2eLj5V2mj",
@@ -73,9 +79,44 @@ const Book = () => {
         }
     ]);
 
-    const onAddToCart = () => {
-        console.log("Added to cart");
+    const onAddToCart = (product,productId,quantity) => {
+        if(product != undefined && product != null){
+          setSelectedBooks([...selectedBooks,product]);
+        }
     }
+
+    async function fetchBooks(){
+      try{
+        const response = await axios.get('http://localhost:4000/books/');
+        const bookList = response?.data?.books;
+        if(bookList != undefined){
+          console.log(bookList);
+          setBookList(bookList)
+        }
+      }
+      catch(error){
+        console.log(error);
+      }
+    }
+
+    const searchBooks = async() => {
+      try{
+        const response = await axios.get(`http://localhost:4000/books/${searchTerm}`);
+        if(response != undefined){
+          const bookResponse = response?.data?.books;
+          if(bookResponse != undefined){
+            setSearchResult(bookResponse);
+          }
+        }
+      }
+      catch(error){
+        console.log(error)
+      }
+    }
+
+    useEffect(() => {
+      fetchBooks();
+    },[])
 
     return (
         <>
@@ -90,13 +131,38 @@ const Book = () => {
                 <h3 className={classes.categoryDesc}>
                   Browse our handpicked selection of books
                 </h3>
+                <div className={classes.searchs}>
+            <Input
+              className={classes.searchb}
+              type="text"
+              placeholder="Which book are you looking for?"
+              onChange={(event) => {
+                setSearchTerm(event.target.value);
+              }}
+              startAdornment={
+                <InputAdornment position="start">
+                  <SearchIcon />
+                </InputAdornment>
+              }
+            />
+          </div>
                 <Grid
                   className={classes.categoryFeatured}
                   container
                   justify="center"
                   spacing={1}
                 >
-                    {bookList.map((product) => (
+                    {bookList?.filter((product) => {
+                      if(searchTerm === ""){
+                        return product;
+                      }
+                      else {
+                        if(product.name.toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase())){
+                          return product;
+                        }
+                      }
+                    })
+                    .map((product) => (
                 <Grid
                   className={classes.categoryFeatured}
                   item

@@ -6,6 +6,7 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(localStorage.getItem("token")??null);
   const[isLoading, setIsLoading]=useState(false);
+  const [selectedBooks, setSelectedBooks] = useState([]);
 
 const register=async(userInfo)=>{
   setIsLoading(true)
@@ -82,7 +83,7 @@ setIsLoading(true)
   }
 
   return (
-    <AuthContext.Provider value={{ user, token,isLoading,setUser, setToken ,login, logout,register,getUserInfo }}>
+    <AuthContext.Provider value={{ user, token,isLoading,setUser, setToken ,login, logout,register,getUserInfo,selectedBooks,setSelectedBooks }}>
       {children}
     </AuthContext.Provider>
   );
